@@ -1,5 +1,7 @@
 # Calculate trees with prokka and references
 
+## Structure
+
 The idea of this program is threefold:
 
 ### First: 
@@ -16,10 +18,26 @@ If the experimental setup allows for it, we can later combine the tree informati
 
 ### Theoretical example: 
 
-the phnJ gene is responsible for degradation of phosphonates in many bacteria. But not all bacteria containing it are capable of degrading the phosphonate glyphosate. To figure out if my glyphosate-inpacted metagenomes contain the "right" version of phnJ, we build trees of the phnJ gene and include reference genes from known glyphosate degraders. This tree is then linked to the phnJ abundance data to see if specific clusters become more abundant after glyphosate addition (arguebly those capable of degradation).
+The phnJ gene is responsible for degradation of phosphonates in many bacteria. But not all bacteria containing it are capable of degrading the phosphonate glyphosate. To figure out if my glyphosate-inpacted metagenomes contain the "right" version of phnJ, we build trees of the phnJ gene and include reference genes from known glyphosate degraders. This tree is then linked to the phnJ abundance data to see if specific clusters become more abundant after glyphosate addition (arguebly those capable of degradation).
 
-## How to run
+## How to run the workflow
+
+Install the conda environment with
 
 ```bash
-nextflow run . --prokka_input <prokka fasta file>
+conda env create -f conda.conf
 ```
+The workflow is written in NextFlow. To run it on the test data set, run
+
+```bash
+nextflow run .
+```
+
+Additional parameters can also be set (see `nextflow.config` for a complete list of available parameters).
+
+### Detailed workflow
+
+#### First
+
+1. The workflow creates single-line protein fasta files from the prokka output protein fasta file.
+
