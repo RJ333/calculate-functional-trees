@@ -1,7 +1,5 @@
 #!/usr/bin/env nextflow
 
-params.prokka_input = "$PWD/prokka.faa"
-
 prokka_input = file(params.prokka_input)
 
 process create_single_line_fasta {
