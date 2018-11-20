@@ -40,4 +40,5 @@ Additional parameters can also be set (see `nextflow.config` for a complete list
 #### First
 
 1. The workflow creates single-line protein fasta files from the prokka output protein fasta file.
+2. The single-line protein fasta file is subsetted by a protein that is defined in the nextflow config file.
 
