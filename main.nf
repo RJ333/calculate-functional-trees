@@ -14,6 +14,10 @@ println """\
          .stripIndent()
 
 process create_single_line_fasta {
+    /*
+      This process joins all sequence lines and creates a single line fasta file.
+    */
+
     input:
       file prokka from prokka_protein_fasta
 
@@ -26,6 +30,11 @@ process create_single_line_fasta {
 }
 
 process subset_gff {
+    /*
+      This process subsets all lines from the prokka gff file and only keeps those with the same gene name as set in
+      the nextflow config file.
+    */
+
     input:
       file gff_file from prokka_gff
     output:
@@ -39,6 +48,13 @@ process subset_gff {
 }
 
 process subset_protein_fasta {
+    /*
+      This process uses the subsetted gff file from the process subset_gff and extracts the gene IDs from those lines.
+      A space is added at the end of the line (e.g. to parse ID1 but not ID10) and uses this file to obtain all
+      protein sequences from the single line fasta file (from the process create_single_line_fasta) that belong to the
+      gene of interest.
+    */
+
     publishDir 'results/'
 
     input:
