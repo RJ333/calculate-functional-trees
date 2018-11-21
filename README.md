@@ -39,5 +39,6 @@ Additional parameters can also be set (see `nextflow.config` for a complete list
 
 #### First
 
-1. The workflow creates single-line protein fasta files from the prokka output protein fasta file.
+First, all protein sequences for a gene of interest (defined in the config file) are extracted from the prokka protein
+fasta file.
 
