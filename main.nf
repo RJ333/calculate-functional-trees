@@ -139,8 +139,6 @@ process run_msa {
       This process performes a multiple sequence alignment of the concatenated sequences with MAFFT.
     */
 
-    publishDir 'results/'
-
     input:
       file merged_proteins_no_dup
     output:
@@ -148,6 +146,23 @@ process run_msa {
 
     """
     mafft --auto $merged_proteins_no_dup > merged_seqs.msa.faa
+    """
+}
+
+process fasta_to_phylip {
+    /*
+      This process performes a multiple sequence alignment of the concatenated sequences with MAFFT.
+    */
+
+    publishDir 'results/'
+
+    input:
+      file msa
+    output:
+      file 'merged_seqs.phylip' into phylip
+
+    """
+    fasta_to_phylip.py $msa merged_seqs.phylip
     """
 }
 
