@@ -40,5 +40,6 @@ Additional parameters can also be set (see `nextflow.config` for a complete list
 #### First
 
 First, all protein sequences for a gene of interest (defined in the config file) are extracted from the prokka protein
-fasta file.
+fasta file. Subsequently, the gene sequence of interest (parameter: `gene_name`) are downloaded from UniProt for the
+strains/organisms of interest based on the list of tax IDs (parameter: `tax_list`).
 
