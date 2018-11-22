@@ -1,5 +1,5 @@
-# Escherichia coli str. K-12 substr. MG1655
-511145
+# Escherichia coli str. K-12
+83333
 # Pseudomonas stutzeri
 316
 # Ochrobactrum anthropi ATCC 49188
