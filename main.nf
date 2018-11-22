@@ -93,8 +93,6 @@ process merge_protein_sequences {
       This process merges the Prokka sequences and the UniProt sequences into one file.
     */
 
-    publishDir 'results/'
-
     input:
       file subset_prokka
       file subset_target_genes
@@ -103,6 +101,23 @@ process merge_protein_sequences {
 
     """
     cat $subset_prokka $subset_target_genes > merged_seqs.faa
+    """
+}
+
+process run_msa {
+    /*
+      This process performes a multiple sequence alignment of the concatenated sequences with MAFFT.
+    */
+
+    publishDir 'results/'
+
+    input:
+      file merged_proteins
+    output:
+      file 'merged_seqs.msa.faa' into msa
+
+    """
+    mafft --auto $merged_proteins > merged_seqs.msa.faa
     """
 }
 
