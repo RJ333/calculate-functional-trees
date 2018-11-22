@@ -3,6 +3,7 @@
 prokka_protein_fasta = file(params.prokka_protein_fasta)
 prokka_gff = file(params.prokka_gff)
 gene_name = params.gene_name
+taxa_of_interest = file(params.tax_list)
 
 println """\
          workflow: build phylogenetic trees of proteins sequences
@@ -10,6 +11,7 @@ println """\
          gene_name           : ${params.gene_name}
          prokka_protein_fasta: ${params.prokka_protein_fasta}
          prokka_gff          : ${params.prokka_gff}
+         taxa_of_interest    : ${params.tax_list}
          """
          .stripIndent()
 
@@ -19,13 +21,13 @@ process create_single_line_fasta {
     */
 
     input:
-      file prokka from prokka_protein_fasta
+      file prokka_protein_fasta
 
     output:
       file 'prokka.sl.faa' into single_line_fasta
 
     """
-    perl -pe '/^>/ ? print "\n" : chomp' $prokka | tail -n +2 > prokka.sl.faa
+    perl -pe '/^>/ ? print "\n" : chomp' $prokka_protein_fasta | tail -n +2 > prokka.sl.faa
     """
 }
 
@@ -36,12 +38,12 @@ process subset_gff {
     */
 
     input:
-      file gff_file from prokka_gff
+      file prokka_gff
     output:
       file 'prokka_subset.gff' into subset_gff
 
     """
-    cat $gff_file | \
+    cat $prokka_gff | \
       grep "gene=$gene_name" | \
       awk '\$3 == "CDS" {print \$0}' > prokka_subset.gff
     """
@@ -55,21 +57,52 @@ process subset_protein_fasta {
       gene of interest.
     */
 
-    publishDir 'results/'
-
     input:
-      file prokka_single_line from single_line_fasta
-      file gff_subset_file from subset_gff
+      file single_line_fasta
+      file subset_gff
     output:
       file 'prokka_subset.faa' into subset_prokka
 
     """
-    cat $gff_subset_file | \
+    cat $subset_gff | \
       awk -F '[\t;]' '\$3 == "CDS" {print \$9}' | \
       grep -oP '^ID=\\K.*' | \
       sed 's/\$/ /' > gene_ids.txt
-    grep -F -A 1 -f gene_ids.txt $prokka_single_line | \
+    grep -F -A 1 -f gene_ids.txt $single_line_fasta | \
       sed '/^--\$/d' > prokka_subset.faa
+    """
+}
+
+process download_sequences_from_uniprot {
+    /*
+      This process downloads the genes of interest of the taxa of interest (input file with TaxIDs) from UniProt-TrEMBL.
+    */
+
+    input:
+      file taxa_of_interest
+    output:
+      file 'uniprot_seq.faa' into subset_target_genes
+
+    """
+    get_protein_sequences.py -i $taxa_of_interest -o uniprot_seq.faa -g $gene_name
+    """
+}
+
+process merge_protein_sequences {
+    /*
+      This process merges the Prokka sequences and the UniProt sequences into one file.
+    */
+
+    publishDir 'results/'
+
+    input:
+      file subset_prokka
+      file subset_target_genes
+    output:
+      file 'merged_seqs.faa' into merged_proteins
+
+    """
+    cat $subset_prokka $subset_target_genes > merged_seqs.faa
     """
 }
 
