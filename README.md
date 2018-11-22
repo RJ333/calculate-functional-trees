@@ -43,5 +43,5 @@ First, all protein sequences for a gene of interest (defined in the config file)
 fasta file. Subsequently, the gene sequence of interest (parameter: `gene_name`) are downloaded from UniProt for the
 strains/organisms of interest based on the list of tax IDs (parameter: `tax_list`). Duplicates in the concatenated
 sequences are removed and the remaining sequences are aligned with MAFFT. Afterwards, the alignment gets transformed
-to phylip format.
+to phylip format. Eventually, the phylogenetic tree of the proteins is calculated with RAxML.
 

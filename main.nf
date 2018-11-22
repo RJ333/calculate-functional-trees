@@ -169,8 +169,6 @@ process remove_special_chars_from_phylip {
       This process removes forbidden characters from the phylip format.
     */
 
-    publishDir 'results/'
-
     input:
       file phylip
     output:
@@ -178,6 +176,23 @@ process remove_special_chars_from_phylip {
 
     """
     remove_special_characters_from_phylip.py $phylip > merged_seqs.clean.phylip
+    """
+}
+
+process run_raxml {
+    /*
+      This process runs raxml of the preprocessed phylip file.
+    */
+
+    publishDir 'results/'
+
+    input:
+      file phylip_clean
+    output:
+      file 'RAxML_bestTree.phnJ' into raxml_tree
+
+    """
+    raxmlHPC-PTHREADS-SSE3 -T 28 -p 12345 -s $phylip_clean -m PROTCATAUTO -n phnJ -x 12345 -f a -N 10
     """
 }
 
