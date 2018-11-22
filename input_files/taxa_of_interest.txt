@@ -1,0 +1,24 @@
+# Escherichia coli str. K-12
+83333
+# Pseudomonas stutzeri
+316
+# Ochrobactrum anthropi ATCC 49188
+439375
+# Sinorhizobium meliloti 1021
+266834
+# Agrobacterium radiobacter K84
+311403
+# Mesorhizobium japonicum MAFF 303099
+266835
+# Bradyrhizobium diazoefficiens USDA 110
+224911
+# Burkholderia pseudomallei 1026b
+884204
+# Nostoc sp. PCC 7120
+103690
+# Acidithiobacillus ferrooxidans ATCC 23270
+243159
+# Trichodesmium erythraeum IMS101
+203124
+# Ruegeria pomeroyi DSS-3
+246200
