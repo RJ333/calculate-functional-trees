@@ -104,6 +104,21 @@ process merge_protein_sequences {
     """
 }
 
+process remove_duplicates {
+    /*
+      This process removes the duplicated protein sequences from the merged protein fasta file.
+    */
+
+    input:
+      file merged_proteins
+    output:
+      file 'merged_seqs.nodup.faa' into merged_proteins_no_dup
+
+    """
+    cd-hit-dup -i $merged_proteins -o merged_seqs.nodup.faa
+    """
+}
+
 process run_msa {
     /*
       This process performes a multiple sequence alignment of the concatenated sequences with MAFFT.
@@ -112,12 +127,12 @@ process run_msa {
     publishDir 'results/'
 
     input:
-      file merged_proteins
+      file merged_proteins_no_dup
     output:
       file 'merged_seqs.msa.faa' into msa
 
     """
-    mafft --auto $merged_proteins > merged_seqs.msa.faa
+    mafft --auto $merged_proteins_no_dup > merged_seqs.msa.faa
     """
 }
 
