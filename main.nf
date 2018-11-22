@@ -151,10 +151,8 @@ process run_msa {
 
 process fasta_to_phylip {
     /*
-      This process performes a multiple sequence alignment of the concatenated sequences with MAFFT.
+      This process converts fasta to phylip format.
     */
-
-    publishDir 'results/'
 
     input:
       file msa
@@ -163,6 +161,23 @@ process fasta_to_phylip {
 
     """
     fasta_to_phylip.py $msa merged_seqs.phylip
+    """
+}
+
+process remove_special_chars_from_phylip {
+    /*
+      This process removes forbidden characters from the phylip format.
+    */
+
+    publishDir 'results/'
+
+    input:
+      file phylip
+    output:
+      file 'merged_seqs.clean.phylip' into phylip_clean
+
+    """
+    remove_special_characters_from_phylip.py $phylip > merged_seqs.clean.phylip
     """
 }
 
