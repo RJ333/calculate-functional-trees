@@ -184,8 +184,6 @@ process run_raxml {
       This process runs raxml of the preprocessed phylip file.
     */
 
-    publishDir 'results/'
-
     input:
       file phylip_clean
     output:
@@ -193,6 +191,23 @@ process run_raxml {
 
     """
     raxmlHPC-PTHREADS-SSE3 -T 28 -p 12345 -s $phylip_clean -m PROTCATAUTO -n phnJ -x 12345 -f a -N 10
+    """
+}
+
+process restore_spaces {
+    /*
+      This process replaces the "%" symbol in the tree with space signs.
+    */
+
+    publishDir 'results/'
+
+    input:
+      file raxml_tree
+    output:
+      file 'RAxML_bestTree.clean.phnJ' into raxml_tree_clean
+
+    """
+    sed 's/%/ /g' $raxml_tree > RAxML_bestTree.clean.phnJ
     """
 }
 
