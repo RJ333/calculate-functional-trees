@@ -104,18 +104,33 @@ process merge_protein_sequences {
     """
 }
 
+process remove_spaces_from_fasta_headers {
+    /*
+      This process removes spaces from the fasta headers and replaces them with "%".
+    */
+
+    input:
+      file merged_proteins
+    output:
+      file 'merged_seqs.nospaces.faa' into merged_proteins_nospaces
+
+    """
+    sed '/^>/s/ /%/g' $merged_proteins > merged_seqs.nospaces.faa
+    """
+}
+
 process remove_duplicates {
     /*
       This process removes the duplicated protein sequences from the merged protein fasta file.
     */
 
     input:
-      file merged_proteins
+      file merged_proteins_nospaces
     output:
       file 'merged_seqs.nodup.faa' into merged_proteins_no_dup
 
     """
-    cd-hit-dup -i $merged_proteins -o merged_seqs.nodup.faa
+    cd-hit-dup -i $merged_proteins_nospaces -o merged_seqs.nodup.faa
     """
 }
 
