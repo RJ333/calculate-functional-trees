@@ -1,5 +1,14 @@
 #!/usr/bin/env python
 
+"""
+This script downloads desired protein sequences from a given list of taxon IDs.
+
+With the aid of the UniProt API, the sequences of interest are downloaded. The protein of interest is passed by the
+parameter `--gene_name`, the organisms of interest are selected based on a text file that contains the tax IDs
+(parameter `--input_file`). Optionally, the parameter `--reviewed` can be passed to only download Swiss-Prot entries.
+The target for the downloaded file can be passed via `--output_file`.
+"""
+
 import argparse
 import urllib.parse
 import urllib.request
