@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-Convert fasta alignemnts to relaxed phylip ones in constant memory.
+Convert fasta alignments to relaxed phylip ones in constant memory.
 Written by Lucas Sinclair.
 Kopimi.
 
