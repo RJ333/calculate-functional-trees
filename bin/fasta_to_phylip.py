@@ -55,14 +55,14 @@ def fasta_parse(path):
 
 def main():
     # Get the shell arguments #
-    fa_path = sys.argv[1]
-    ph_path = sys.argv[2]
+    fasta_file = sys.argv[1]
+    phylip_file = sys.argv[2]
     # Check that the path is valid #
-    if not os.path.exists(fa_path): raise Exception("No file at %s." % fa_path)
+    if not os.path.exists(fasta_file): raise Exception("No file at %s." % fasta_file)
     # Use our two functions #
-    seqs = fasta_parse(fa_path)
+    seqs = fasta_parse(fasta_file)
     # Write the output to temporary file #
-    tm_path = ph_path + '.' + ''.join(random.choice(string.ascii_letters) for i in range(10))
+    tm_path = phylip_file + '.' + ''.join(random.choice(string.ascii_letters) for i in range(10))
     # Count the sequences #
     count = 0
     with open(tm_path, 'w') as phylip_open:
@@ -70,7 +70,7 @@ def main():
             phylip_open.write(seq.phylip)
             count += 1
     # Add number of entries and length at the top #
-    with open(tm_path, 'r') as old, open(ph_path, 'w') as new:
+    with open(tm_path, 'r') as old, open(phylip_file, 'w') as new:
         new.write(" " + str(count) + " " + str(len(seq)) + "\n")
         new.writelines(old)
     # Clean up #
