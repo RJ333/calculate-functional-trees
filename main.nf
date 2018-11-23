@@ -104,18 +104,33 @@ process merge_protein_sequences {
     """
 }
 
+process remove_spaces_from_fasta_headers {
+    /*
+      This process removes spaces from the fasta headers and replaces them with "%".
+    */
+
+    input:
+      file merged_proteins
+    output:
+      file 'merged_seqs.nospaces.faa' into merged_proteins_nospaces
+
+    """
+    sed '/^>/s/ /%/g' $merged_proteins > merged_seqs.nospaces.faa
+    """
+}
+
 process remove_duplicates {
     /*
       This process removes the duplicated protein sequences from the merged protein fasta file.
     */
 
     input:
-      file merged_proteins
+      file merged_proteins_nospaces
     output:
       file 'merged_seqs.nodup.faa' into merged_proteins_no_dup
 
     """
-    cd-hit-dup -i $merged_proteins -o merged_seqs.nodup.faa
+    cd-hit-dup -i $merged_proteins_nospaces -o merged_seqs.nodup.faa
     """
 }
 
@@ -124,8 +139,6 @@ process run_msa {
       This process performes a multiple sequence alignment of the concatenated sequences with MAFFT.
     */
 
-    publishDir 'results/'
-
     input:
       file merged_proteins_no_dup
     output:
@@ -133,6 +146,68 @@ process run_msa {
 
     """
     mafft --auto $merged_proteins_no_dup > merged_seqs.msa.faa
+    """
+}
+
+process fasta_to_phylip {
+    /*
+      This process converts fasta to phylip format.
+    */
+
+    input:
+      file msa
+    output:
+      file 'merged_seqs.phylip' into phylip
+
+    """
+    fasta_to_phylip.py $msa merged_seqs.phylip
+    """
+}
+
+process remove_special_chars_from_phylip {
+    /*
+      This process removes forbidden characters from the phylip format.
+    */
+
+    input:
+      file phylip
+    output:
+      file 'merged_seqs.clean.phylip' into phylip_clean
+
+    """
+    remove_special_characters_from_phylip.py $phylip > merged_seqs.clean.phylip
+    """
+}
+
+process run_raxml {
+    /*
+      This process runs raxml of the preprocessed phylip file.
+    */
+
+    input:
+      file phylip_clean
+    output:
+      file 'RAxML_bestTree.phnJ' into raxml_tree
+
+    """
+    raxmlHPC-PTHREADS-SSE3 -T 28 -p 12345 -s $phylip_clean -m PROTCATAUTO -n phnJ -x 12345 -f a -N 10
+    """
+}
+
+process restore_spaces {
+    /*
+      This process replaces the "%" symbol in the tree with space signs.
+    */
+
+    publishDir 'results/'
+
+    input:
+      file raxml_tree
+    output:
+      file 'RAxML_bestTree.clean.phnJ' into raxml_tree_clean
+
+    """
+    sed 's/%/ /g' $raxml_tree > RAxML_bestTree.clean.phnJ
     """
 }
 

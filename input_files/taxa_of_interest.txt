@@ -2,6 +2,8 @@
 83333
 # Pseudomonas stutzeri
 316
+# Pseudomonas aeruginosa
+287
 # Ochrobactrum anthropi ATCC 49188
 439375
 # Sinorhizobium meliloti 1021
