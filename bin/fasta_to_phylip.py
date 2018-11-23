@@ -9,7 +9,13 @@ You can use this script from the shell like this::
 $ fasta_to_phylip seqs.fasta seqs.phylip
 """
 
-###############################################################################
+import os
+import random
+import re
+import string
+import sys
+
+
 class Sequence(object):
     """The Sequence object has a string *header* and
     various representations."""
@@ -29,6 +35,7 @@ class Sequence(object):
     def fasta(self):
         return ">" + self.header + "\n" + self.seq + "\n"
 
+
 def fasta_parse(path):
     """Reads the file at *path* and yields
        Sequence objects in a lazy fashion"""
@@ -45,28 +52,30 @@ def fasta_parse(path):
             seq += line
     yield Sequence(header, seq)
 
-###############################################################################
-# The libraries we need #
-import sys, os, random, string, re
-# Get the shell arguments #
-fa_path = sys.argv[1]
-ph_path = sys.argv[2]
-# Check that the path is valid #
-if not os.path.exists(fa_path): raise Exception("No file at %s." % fa_path)
-# Use our two functions #
-seqs = fasta_parse(fa_path)
-# Write the output to temporary file #
-tm_path = ph_path + '.' + ''.join(random.choice(string.ascii_letters) for i in range(10))
-# Count the sequences #
-count = 0
-with open(tm_path, 'w') as f:
-    for seq in seqs:
-        f.write(seq.phylip)
-        count += 1
-# Add number of entries and length at the top #
-with open(tm_path, 'r') as old, open(ph_path, 'w') as new:
-    new.write(" " + str(count) + " " + str(len(seq)) + "\n")
-    new.writelines(old)
-# Clean up #
-os.remove(tm_path)
 
+def main():
+    # Get the shell arguments #
+    fa_path = sys.argv[1]
+    ph_path = sys.argv[2]
+    # Check that the path is valid #
+    if not os.path.exists(fa_path): raise Exception("No file at %s." % fa_path)
+    # Use our two functions #
+    seqs = fasta_parse(fa_path)
+    # Write the output to temporary file #
+    tm_path = ph_path + '.' + ''.join(random.choice(string.ascii_letters) for i in range(10))
+    # Count the sequences #
+    count = 0
+    with open(tm_path, 'w') as f:
+        for seq in seqs:
+            f.write(seq.phylip)
+            count += 1
+    # Add number of entries and length at the top #
+    with open(tm_path, 'r') as old, open(ph_path, 'w') as new:
+        new.write(" " + str(count) + " " + str(len(seq)) + "\n")
+        new.writelines(old)
+    # Clean up #
+    os.remove(tm_path)
+
+
+if __name__ == "__main__":
+    main()
