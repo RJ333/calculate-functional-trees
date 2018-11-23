@@ -1,5 +1,9 @@
 #!/usr/bin/env python
 
+"""
+This script removes the all characters from phylip that leads to problem with RAxML.
+"""
+
 import re
 import sys
 
