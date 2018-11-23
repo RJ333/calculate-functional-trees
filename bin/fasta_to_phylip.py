@@ -41,8 +41,8 @@ def fasta_parse(path):
        Sequence objects in a lazy fashion"""
     header = ''
     seq = ''
-    with open(path) as f:
-        for line in f:
+    with open(path) as fasta_open:
+        for line in fasta_open:
             line = line.strip('\n')
             if line.startswith('>'):
                 if header: yield Sequence(header, seq)
@@ -65,9 +65,9 @@ def main():
     tm_path = ph_path + '.' + ''.join(random.choice(string.ascii_letters) for i in range(10))
     # Count the sequences #
     count = 0
-    with open(tm_path, 'w') as f:
+    with open(tm_path, 'w') as phylip_open:
         for seq in seqs:
-            f.write(seq.phylip)
+            phylip_open.write(seq.phylip)
             count += 1
     # Add number of entries and length at the top #
     with open(tm_path, 'r') as old, open(ph_path, 'w') as new:
