@@ -2,7 +2,7 @@
 83333
 # Pseudomonas stutzeri
 316
-# Pseudomonas aeruginosa ATCC 9027/DSM 1128
+# Pseudomonas aeruginosa
 287
 # Ochrobactrum anthropi ATCC 49188
 439375
