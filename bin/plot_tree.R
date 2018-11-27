@@ -37,10 +37,10 @@ kallisto_subset <- kallisto %>%
 
 log_kallisto <- apply(kallisto_subset, c(1, 2), function(x) log10(x+1))
 
-p <- ggtree(tree) +
+tree_plot <- ggtree(tree) +
   geom_treescale(y = -2, offset = 0.75, fontsize = 3) +
   geom_tiplab(size = 2)
 
-gheatmap(p, log_kallisto, offset = 2, low = "blue", high = "red", colnames_angle = 90)
+gheatmap(tree_plot, log_kallisto, offset = 2, low = "blue", high = "red", colnames_angle = 90)
 ggsave(args$output, device = "pdf", dpi = 300)
 
