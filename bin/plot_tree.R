@@ -1,5 +1,8 @@
 #!/usr/bin/env Rscript
 
+#' This R script plots a newick tree and adds the abundances as they are present in a Kallisto matrix. Special
+#' adjustments have been made for the analysis of the Glyphosate_gene_richness project.
+
 library(argparse)
 library(extrafont)
 library(ggtree)
