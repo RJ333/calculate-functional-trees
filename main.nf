@@ -4,6 +4,11 @@ prokka_protein_fasta = file(params.prokka_protein_fasta)
 prokka_gff = file(params.prokka_gff)
 gene_name = params.gene_name
 taxa_of_interest = file(params.tax_list)
+kallisto_matrix = file(params.kallisto_matrix)
+raxml_randomseed = params.raxml_randomseed
+raxml_model = params.raxml_model
+raxml_algorithm = params.raxml_algorithm
+raxml_runs = params.raxml_runs
 
 println """\
          workflow: build phylogenetic trees of proteins sequences
@@ -12,6 +17,11 @@ println """\
          prokka_protein_fasta: ${params.prokka_protein_fasta}
          prokka_gff          : ${params.prokka_gff}
          taxa_of_interest    : ${params.tax_list}
+         kallisto_matrix     : ${params.kallisto_matrix}
+         raxml_randomseed    : ${params.raxml_randomseed}
+         raxml_model         : ${params.raxml_model}
+         raxml_algorithm     : ${params.raxml_algorithm}
+         raxml_runs          : ${params.raxml_runs}
          """
          .stripIndent()
 
@@ -78,6 +88,8 @@ process download_sequences_from_uniprot {
       This process downloads the genes of interest of the taxa of interest (input file with TaxIDs) from UniProt-TrEMBL.
     */
 
+    publishDir 'results/'
+
     input:
       file taxa_of_interest
     output:
@@ -104,34 +116,36 @@ process merge_protein_sequences {
     """
 }
 
-process remove_spaces_from_fasta_headers {
-    /*
-      This process removes spaces from the fasta headers and replaces them with "%".
-    */
-
-    input:
-      file merged_proteins
-    output:
-      file 'merged_seqs.nospaces.faa' into merged_proteins_nospaces
-
-    """
-    sed '/^>/s/ /%/g' $merged_proteins > merged_seqs.nospaces.faa
-    """
-}
-
+// process remove_spaces_from_fasta_headers {
+//     /*
+//       This process removes spaces from the fasta headers and replaces them with "%".
+//     */
+// 
+//     input:
+//       file merged_proteins
+//     output:
+//       file 'merged_seqs.nospaces.faa' into merged_proteins_nospaces
+// 
+//     """
+//     sed '/^>/s/ /%/g' $merged_proteins > merged_seqs.nospaces.faa
+//     """
+// }
+// 
 process remove_duplicates {
     /*
       This process removes the duplicated protein sequences from the merged protein fasta file.
     */
 
     input:
-      file merged_proteins_nospaces
+      file merged_proteins 
+      // file merged_proteins_nospaces
     output:
       file 'merged_seqs.nodup.faa' into merged_proteins_no_dup
 
     """
-    cd-hit-dup -i $merged_proteins_nospaces -o merged_seqs.nodup.faa
+    cd-hit-dup -i $merged_proteins -o merged_seqs.nodup.faa
     """
+    // cd-hit-dup -i $merged_proteins_nospaces -o merged_seqs.nodup.faa
 }
 
 process run_msa {
@@ -184,30 +198,53 @@ process run_raxml {
       This process runs raxml of the preprocessed phylip file.
     */
 
+    cpus 28
+
+    publishDir 'results/'
+
     input:
       file phylip_clean
     output:
       file 'RAxML_bestTree.phnJ' into raxml_tree
 
     """
-    raxmlHPC-PTHREADS-SSE3 -T 28 -p 12345 -s $phylip_clean -m PROTCATAUTO -n phnJ -x 12345 -f a -N 10
+    raxmlHPC-PTHREADS-SSE3 -T ${task.cpus} -p $raxml_randomseed -s $phylip_clean -m $raxml_model -n $gene_name -x $raxml_randomseed -f $raxml_algorithm -N $raxml_runs
     """
 }
 
-process restore_spaces {
+// process restore_spaces {
+//     /*
+//       This process replaces the "%" symbol in the tree with space signs.
+//     */
+// 
+//     publishDir 'results/'
+// 
+//     input:
+//       file raxml_tree
+//     output:
+//       file 'RAxML_bestTree.clean.phnJ' into raxml_tree_clean
+// 
+//     """
+//     sed 's/%/ /g' $raxml_tree > RAxML_bestTree.clean.phnJ
+//     """
+// }
+// 
+
+process plot_tree {
     /*
-      This process replaces the "%" symbol in the tree with space signs.
+      This process uses ggtree to plot the tree together with the kallisto matrix.
     */
 
     publishDir 'results/'
 
     input:
       file raxml_tree
+      file kallisto_matrix
     output:
-      file 'RAxML_bestTree.clean.phnJ' into raxml_tree_clean
+      file 'tree_phnJ.pdf' into tree_plot
 
     """
-    sed 's/%/ /g' $raxml_tree > RAxML_bestTree.clean.phnJ
+    plot_tree.R -t $raxml_tree -k $kallisto_matrix -o tree_phnJ.pdf
     """
 }
 
