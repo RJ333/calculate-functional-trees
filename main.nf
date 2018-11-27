@@ -116,21 +116,6 @@ process merge_protein_sequences {
     """
 }
 
-// process remove_spaces_from_fasta_headers {
-//     /*
-//       This process removes spaces from the fasta headers and replaces them with "%".
-//     */
-// 
-//     input:
-//       file merged_proteins
-//     output:
-//       file 'merged_seqs.nospaces.faa' into merged_proteins_nospaces
-// 
-//     """
-//     sed '/^>/s/ /%/g' $merged_proteins > merged_seqs.nospaces.faa
-//     """
-// }
-// 
 process remove_duplicates {
     /*
       This process removes the duplicated protein sequences from the merged protein fasta file.
@@ -138,14 +123,12 @@ process remove_duplicates {
 
     input:
       file merged_proteins 
-      // file merged_proteins_nospaces
     output:
       file 'merged_seqs.nodup.faa' into merged_proteins_no_dup
 
     """
     cd-hit-dup -i $merged_proteins -o merged_seqs.nodup.faa
     """
-    // cd-hit-dup -i $merged_proteins_nospaces -o merged_seqs.nodup.faa
 }
 
 process run_msa {
@@ -208,27 +191,10 @@ process run_raxml {
       file 'RAxML_bestTree.phnJ' into raxml_tree
 
     """
-    raxmlHPC-PTHREADS-SSE3 -T ${task.cpus} -p $raxml_randomseed -s $phylip_clean -m $raxml_model -n $gene_name -x $raxml_randomseed -f $raxml_algorithm -N $raxml_runs
+    raxmlHPC-PTHREADS-SSE3 -T ${task.cpus} -p $raxml_randomseed -s $phylip_clean -m $raxml_model -n $gene_name \
+      -x $raxml_randomseed -f $raxml_algorithm -N $raxml_runs
     """
 }
-
-// process restore_spaces {
-//     /*
-//       This process replaces the "%" symbol in the tree with space signs.
-//     */
-// 
-//     publishDir 'results/'
-// 
-//     input:
-//       file raxml_tree
-//     output:
-//       file 'RAxML_bestTree.clean.phnJ' into raxml_tree_clean
-// 
-//     """
-//     sed 's/%/ /g' $raxml_tree > RAxML_bestTree.clean.phnJ
-//     """
-// }
-// 
 
 process plot_tree {
     /*
