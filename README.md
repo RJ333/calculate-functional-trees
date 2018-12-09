@@ -33,6 +33,14 @@ The workflow is written in NextFlow. To run it on the test data set, run
 nextflow run .
 ```
 
+To run the example, the following files need to be present in the `input_files` directory:
+* the list with the tax ids of the reference organisms (comes with the repository)
+* a `gff`- file with annotations of your metagenomic samples (`glyph.gff`, add manually)
+* a `faa`- file with the protein fasta sequences of the genes (`glyph.faa`, add manually)
+* a kallisto table containing the abundance of your genes (`kallisto_abundance_matrix.tsv.gz`, add manually)
+
+you can run the workflow without the `faa` and `gff` file, this will result in a tree containing only genes from reference organisms.
+
 Additional parameters can also be set (see `nextflow.config` for a complete list of available parameters).
 
 ### Detailed workflow
