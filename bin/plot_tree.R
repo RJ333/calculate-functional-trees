@@ -52,6 +52,6 @@ if(file.exists(args$kallisto)){
     geom_treescale(y = -2, offset = 0.75, fontsize = 3) +
     geom_tiplab(size = 2)
 	
-  gheatmap(tree_plot, offset = 2, colnames_angle = 90)
+  print(tree_plot)
   ggsave(file = paste0(args$output, "_no_kallisto"), device = "pdf", dpi = 300)
 }
