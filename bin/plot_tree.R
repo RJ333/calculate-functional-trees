@@ -52,5 +52,9 @@ if(file.exists(args$kallisto)){
     geom_treescale(y = -2, offset = 0.75, fontsize = 3) +
     geom_tiplab(size = 2)
 	
-  ggsave(tree_plot, file = args$output, device = "pdf", dpi = 300)
+  ggsave(tree_plot, file = args$output, 
+					device = "pdf", 
+					width = 20, 
+					height = 20, 
+					dpi = 300)
 }
