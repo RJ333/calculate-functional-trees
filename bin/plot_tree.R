@@ -44,7 +44,7 @@ if(file.exists(args$kallisto)){
     geom_tiplab(size = 2)
 
   gheatmap(tree_plot, log_kallisto, offset = 2, low = "blue", high = "red", colnames_angle = 90)
-  ggsave(args$output, device = "pdf", dpi = 300)
+  ggsave(args$output, device = "svg", dpi = 300)
 } else {
   print("No kallisto data was provided, plotting tree without heatmap")
   
@@ -52,6 +52,5 @@ if(file.exists(args$kallisto)){
     geom_treescale(y = -2, offset = 0.75, fontsize = 3) +
     geom_tiplab(size = 2)
 	
-  print(tree_plot)
-  ggsave(file = args$output, device = "pdf", dpi = 300)
+  ggsave(tree_plot, file = args$output, device = "svg", dpi = 300)
 }
