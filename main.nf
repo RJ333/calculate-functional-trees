@@ -210,8 +210,8 @@ process plot_tree {
       file "tree_${gene_name}.pdf" into tree_plot
 
     """
-    println "Hello, World!"
-	println "this the kallisto file: $kallisto_matrix"
+    print "Hello, World!"
+	print "this the kallisto file: $kallisto_matrix"
 	plot_tree.R -t $raxml_tree -k $kallisto_matrix -o tree_${gene_name}.pdf
 	"""
 }
