@@ -1,7 +1,8 @@
 #!/usr/bin/env Rscript
 
-#' This R script plots a newick tree and adds the abundances as they are present in a Kallisto matrix. Special
-#' adjustments have been made for the analysis of the Glyphosate_gene_richness project.
+#' This R script plots a newick tree and adds the abundances as they are present in a Kallisto matrix. If now
+#' Kallisto data is available, it only prints the tree. Special adjustments have been made for the analysis 
+#' of the Glyphosate_gene_richness project.
 
 library(argparse)
 library(extrafont)
@@ -46,14 +47,12 @@ if(file.exists(args$kallisto)){
   gheatmap(tree_plot, log_kallisto, offset = 2, low = "blue", high = "red", colnames_angle = 90)
   ggsave(args$output, device = "pdf", dpi = 300)
 } else {
-  print("No kallisto data was provided, plotting tree without heatmap")
-  
   tree_plot <- ggtree(tree) +
     geom_treescale(y = -2, offset = 0.75, fontsize = 3) +
     geom_tiplab(size = 2)
 	
   ggsave(tree_plot, file = args$output, 
 					device = "pdf", 
-					width = 9, 
+					width = 10, 
 					height = 10)
 }
