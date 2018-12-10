@@ -53,5 +53,5 @@ if(file.exists(args$kallisto)){
     geom_tiplab(size = 2)
 	
   print(tree_plot)
-  ggsave(file = paste0(args$output, "_no_kallisto"), device = "pdf", dpi = 300)
+  ggsave(file = args$output, device = "pdf", dpi = 300)
 }
