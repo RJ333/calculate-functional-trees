@@ -54,7 +54,7 @@ if(file.exists(args$kallisto)){
 	
   ggsave(tree_plot, file = args$output, 
 					device = "pdf", 
-					width = 7, 
+					width = 9, 
 					height = 10, 
 					dpi = 300)
 }
