@@ -36,7 +36,7 @@ kallisto_melt <- reshape2::melt(kallisto_subset_for_melt, id = "id")
   # group_by(id,protein_name) %>%
   # mutate(relative_abundance = value/max(value)*100)
 
-df1[is.na(df1)] <- 0
+# df1[is.na(df1)] <- 0
 # turn data into long format to calculation of relative abundances
 kallisto_melt <- kallisto_melt[with(kallisto_melt, order(id)), ]
 kallisto_melt <- setDT(kallisto_melt)
