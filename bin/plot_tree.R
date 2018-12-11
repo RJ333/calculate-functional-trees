@@ -32,10 +32,10 @@ tree <- read.newick(args$tree)
 
 if(file.exists(args$kallisto)){
   
+  kallisto <- read_delim(args$kallisto, delim = "\t")
+  
   if(args$scale == "logarithmic"){
     
-	kallisto <- read_delim(args$kallisto, delim = "\t")
-
     kallisto_subset <- kallisto %>%
       select(-c(protein_name, tpm_B8, tpm_B9, tpm_B10)) %>%
       column_to_rownames("id") %>%
