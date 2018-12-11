@@ -32,7 +32,7 @@ tree <- read.newick(args$tree)
 
 if(file.exists(args$kallisto)){
   
-  if(args$scale == "log"){
+  if(args$scale == "logarithmic"){
     
 	kallisto <- read_delim(args$kallisto, delim = "\t")
 

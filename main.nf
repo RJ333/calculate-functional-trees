@@ -215,4 +215,3 @@ process plot_tree {
     plot_tree.R -t $raxml_tree -k $kallisto_matrix -s ${params.heatmap_scale} -o tree_${gene_name}.pdf
     """
 }
-
