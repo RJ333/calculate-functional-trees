@@ -31,10 +31,12 @@ The workflow is written in NextFlow. To run it on the test data set, run
 
 ```bash
 nextflow run .
+# or to override default parameters
+nextflow run . --gene_name phnM --heatmap_scale logarithmic
 ```
 
 To run the example, the following files need to be present in the `input_files` directory:
-* the list with the tax ids of the reference organisms (comes with the repository)
+* the list with the tax ids of the reference organisms (**no empty lines allowed**, file comes with the repository)
 * a `gff`- file with annotations of your metagenomic samples (`glyph.gff`, add manually)
 * a `faa`- file with the protein fasta sequences of the genes (`glyph.faa`, add manually)
 * a kallisto table containing the abundance of your genes (`kallisto_abundance_matrix.tsv.gz`, add manually)
