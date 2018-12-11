@@ -2,9 +2,9 @@
 # Escherichia coli str. K-12
 83333
 # Pseudomonas stutzeri
-#316
+316
 # Pseudomonas aeruginosa
-#287
+287
 # Ochrobactrum anthropi ATCC 49188
 439375
 # Sinorhizobium meliloti 1021
