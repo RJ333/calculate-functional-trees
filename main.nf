@@ -20,7 +20,7 @@ println """\
          taxa_of_interest    : ${params.tax_list}
          kallisto_matrix     : ${params.kallisto_matrix}
          heatmap_scale       : ${params.heatmap_scale}
-		 raxml_randomseed    : ${params.raxml_randomseed}
+         raxml_randomseed    : ${params.raxml_randomseed}
          raxml_model         : ${params.raxml_model}
          raxml_algorithm     : ${params.raxml_algorithm}
          raxml_runs          : ${params.raxml_runs}
