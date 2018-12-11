@@ -1,9 +1,11 @@
+# this is the reference set from the Hove-Jensen paper 
+
 # Escherichia coli str. K-12
 83333
 # Pseudomonas stutzeri
-316
+#316
 # Pseudomonas aeruginosa
-287
+#287
 # Ochrobactrum anthropi ATCC 49188
 439375
 # Sinorhizobium meliloti 1021
@@ -24,5 +26,64 @@
 203124
 # Ruegeria pomeroyi DSS-3
 246200
-# all Pseudomonas
-# 286
+
+# this is the set of abundant organisms in my own data
+
+# Enterobacter cloacae
+550
+# Gallaecimonas sp. HK-28
+2291597
+# Gallaecimonas xiamenensis 3-C-1
+745411 
+# Gallaecimonas pentaromativorans
+584787
+# Hydrogenophaga flava NBRC 102514
+1349752
+# Brevundimonas vesicularis NBRC 12165
+1349759
+# Pseudomonas putida BIRD-1
+931281
+# Hyphomonas oceanitis SCH89 (Baltic Sea Isolate)
+1280953
+# Idiomarina loihiensis L2TR (contains gox!)
+283942
+# Idiomarina baltica OS145 (Baltic Sea Isolate)
+314276
+# Methylotenera mobilis JLW8
+583345
+# Parvibaculum lavamentivorans DS-1
+402881 
+# Aminobacter aminovorans
+83263
+# Rhizobium leguminosarum bv. trifolii
+386
+# Loktanella -> Yoonia vestfoldensis
+245188
+# Ferrovibrio sp.
+1917215
+# Sphingobium herbicidovorans NBRC 16415
+1219045
+# Sphingobium amiense NBRC 102518
+1223534
+# Sphingorhabdus litoris DSM 22379
+1123271
+# Pseudolabrys taiwanensis
+331696
+# Hoeflea sp. strain BAL378 (aus Landsort Tief)
+1547437
+# Hoeflea marina (isolated Baltic Sea off german coast)
+274592
+# Marivivens niveibacter strain MCCC:1A06712
+1930667
+# Cupriavidus necator PHE3-6
+106590
+# Pseudorhodobacter ferrugineus DSM 5888 (Baltic Sea Isolate)
+1123027
+# Rhodoferax koreense
+1842727
+# Magnetospira sp. QH-2
+1182780
+# Thalassobaculum litoreum DSM 18839( found in Baltic Sea)
+1123362
+# Terrimonas ferruginea DSM 30193
+1123356
