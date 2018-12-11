@@ -29,6 +29,10 @@ args <- parser$parse_args()
 
 tree <- read.newick(args$tree)
 
+tree_plot <- ggtree(tree) +
+  geom_treescale(y = -2, offset = 0.75, fontsize = 3) +
+  geom_tiplab(size = 2)
+
 
 if(file.exists(args$kallisto)){
   
@@ -48,10 +52,6 @@ if(file.exists(args$kallisto)){
              A7 = tpm_A7)
 
     log_kallisto <- apply(kallisto_subset, c(1, 2), function(x) log10(x+1))
-
-    tree_plot <- ggtree(tree) +
-      geom_treescale(y = -2, offset = 0.75, fontsize = 3) +
-      geom_tiplab(size = 2)
 
     gheatmap(tree_plot, log_kallisto, offset = 2, low = "blue", high = "red", colnames_angle = 90)
   
@@ -86,10 +86,6 @@ if(file.exists(args$kallisto)){
 	
 } else {
 
-  tree_plot <- ggtree(tree) +
-    geom_treescale(y = -2, offset = 0.75, fontsize = 3) +
-    geom_tiplab(size = 2)
-	
   ggsave(tree_plot, file = args$output, 
 					device = "pdf", 
 					width = 10, 
