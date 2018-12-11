@@ -1,5 +1,4 @@
 # this is the reference set from the Hove-Jensen paper 
-
 # Escherichia coli str. K-12
 83333
 # Pseudomonas stutzeri
@@ -26,9 +25,7 @@
 203124
 # Ruegeria pomeroyi DSS-3
 246200
-
 # this is the set of abundant organisms in my own data
-
 # Enterobacter cloacae
 550
 # Gallaecimonas sp. HK-28
