@@ -31,7 +31,7 @@
 246200
 # this is the set of abundant organisms in my own data
 # Enterobacter cloacae group
-550
+# 550
 # Enterobacter cloacae subsp. cloacae ATCC 13047
 716541
 # Gallaecimonas sp. HK-28
