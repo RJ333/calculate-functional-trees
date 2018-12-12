@@ -36,6 +36,7 @@ tree_plot <- ggtree(tree) +
 
 if(file.exists(args$kallisto)){
   
+  stopifnot(args$scale == "logarithmic" | args$scale == "relative")
   kallisto <- read_delim(args$kallisto, delim = "\t")
   
   if(args$scale == "logarithmic"){
@@ -54,8 +55,9 @@ if(file.exists(args$kallisto)){
     log_kallisto <- apply(kallisto_subset, c(1, 2), function(x) log10(x+1))
 
     gheatmap(tree_plot, log_kallisto, offset = 2, low = "blue", high = "red", colnames_angle = 90)
-  
-  } else {
+    ggsave(args$output, device = "pdf", dpi = 300)
+	
+  } else if (args$scale == "relative"){
     
 	kallisto_subset_for_melt <- kallisto[, c(1, 3:9)]
     kallisto_melt <- reshape2::melt(kallisto_subset_for_melt, id = "id")
@@ -80,10 +82,8 @@ if(file.exists(args$kallisto)){
              A6 = tpm_A6,
              A7 = tpm_A7)
     gheatmap(tree_plot, rel_kallisto, offset = 2, low = "white", high = "black", colnames_angle = 90)
+    ggsave(args$output, device = "pdf", dpi = 300)
   }
-  
-  ggsave(args$output, device = "pdf", dpi = 300)
-	
 } else {
 
   ggsave(tree_plot, file = args$output, 
