@@ -58,8 +58,8 @@
 402881 
 # Aminobacter aminovorans
 83263
-# Rhizobium leguminosarum bv. trifolii
-386
+# Rhizobium leguminosarum bv. trifolii (strain WSM2304)
+395492
 # Loktanella -> Yoonia vestfoldensis
 245188
 # Ferrovibrio sp.
