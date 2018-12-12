@@ -3,6 +3,7 @@
 prokka_protein_fasta = file(params.prokka_protein_fasta)
 prokka_gff = file(params.prokka_gff)
 gene_name = params.gene_name
+heatmap_scale = params.heatmap_scale
 taxa_of_interest = file(params.tax_list)
 kallisto_matrix = file(params.kallisto_matrix)
 raxml_randomseed = params.raxml_randomseed
@@ -18,6 +19,7 @@ println """\
          prokka_gff          : ${params.prokka_gff}
          taxa_of_interest    : ${params.tax_list}
          kallisto_matrix     : ${params.kallisto_matrix}
+         heatmap_scale       : ${params.heatmap_scale}
          raxml_randomseed    : ${params.raxml_randomseed}
          raxml_model         : ${params.raxml_model}
          raxml_algorithm     : ${params.raxml_algorithm}
@@ -210,7 +212,6 @@ process plot_tree {
       file "tree_${gene_name}.pdf" into tree_plot
 
     """
-	plot_tree.R -t $raxml_tree -k $kallisto_matrix -o tree_${gene_name}.pdf
-	"""
+    plot_tree.R -t $raxml_tree -k $kallisto_matrix -s ${params.heatmap_scale} -o tree_${gene_name}.pdf
+    """
 }
-
