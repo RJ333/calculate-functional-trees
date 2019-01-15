@@ -1,14 +1,14 @@
 # this is the reference set from the Hove-Jensen paper 
 # Escherichia coli str. K-12
-83333
+# 83333
 # Pseudomonas stutzeri group
-316
+# 316
 # Pseudomonas stutzeri A1501
-# 379731
+379731
 # Pseudomonas aeruginosa group
-287
+# 287
 # Pseudomonas aeruginosa (strain ATCC 15692 / DSM 22644 / CIP 104116 / JCM 14847 / LMG 12228 / 1C / PRS 101 / PAO1)
-# 208964
+208964
 # Ochrobactrum anthropi ATCC 49188
 439375
 # Sinorhizobium meliloti 1021
@@ -31,9 +31,9 @@
 246200
 # this is the set of abundant organisms in my own data
 # Enterobacter cloacae group
-# 550
+550
 # Enterobacter cloacae subsp. cloacae ATCC 13047
-716541
+# 716541
 # Gallaecimonas sp. HK-28
 2291597
 # Gallaecimonas xiamenensis 3-C-1
@@ -94,3 +94,42 @@
 1123362
 # Terrimonas ferruginea DSM 30193
 1123356
+# additional taxa for classI II separation
+# class I
+# Nicotiana tabacum
+4097
+# Petunia hybrida
+4102
+# Zea mays
+4577
+# Bordetella pertussis (strain Tohama I / ATCC BAA-589 / NCTC 13251)
+257313
+# Aeromonas salmonicida
+645 
+# Escherichia coli K12
+83333
+# Rahnella aquatilis (strain ATCC 33071 / DSM 4594 / JCM 1683 / NBRC 105701 / NCIMB 13365 / CIP 78.65)
+745277
+# Pseudomonas flourescens F113
+1114970
+# Janibacter sp
+1870928
+# Pseudomonas putida
+303
+# class II
+# Streptococcus pneumoniae TIGR4
+170187
+# Bacillus subtilis subsp. subtilis
+135461
+# Staphylococcus aureus NCTC 8325
+93061 
+# Dichelobacter nodosus VCS1703A
+246195
+# Pseudomonas stutzeri strain A1501
+379731
+# Agrobacterium sp CP4
+268951
+# Pseudomonas sp. PG2982
+308
+# Ochrobactrum anthropi
+439375
