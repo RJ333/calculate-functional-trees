@@ -31,9 +31,9 @@
 246200
 # this is the set of abundant organisms in my own data
 # Enterobacter cloacae group
-550
+# 550
 # Enterobacter cloacae subsp. cloacae ATCC 13047
-# 716541
+716541
 # Gallaecimonas sp. HK-28
 2291597
 # Gallaecimonas xiamenensis 3-C-1
@@ -114,8 +114,8 @@
 1114970
 # Janibacter sp
 1870928
-# Pseudomonas putida
-303
+# Pseudomonas putida W619
+390235 
 # class II
 # Streptococcus pneumoniae TIGR4
 170187
