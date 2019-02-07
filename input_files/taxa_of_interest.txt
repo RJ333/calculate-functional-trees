@@ -1,6 +1,6 @@
 # this is the reference set from the Hove-Jensen paper 
 # Escherichia coli str. K-12
-# 83333
+83333
 # Pseudomonas stutzeri group
 # 316
 # Pseudomonas stutzeri A1501
