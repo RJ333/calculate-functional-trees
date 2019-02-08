@@ -12,7 +12,7 @@
 # Pseudomonas fluorescens group
 136843
 # all Pseudomonas
-286
+# 286
 # Ochrobactrum anthropi ATCC 49188
 439375
 # Sinorhizobium meliloti 1021
