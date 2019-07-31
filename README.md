@@ -25,7 +25,7 @@ The phnJ gene is responsible for degradation of phosphonates in many bacteria. B
 Install the conda environment with
 
 ```bash
-conda env create -f conda.conf
+conda env create -f msa_heatmap.yml
 ```
 The workflow is written in NextFlow. To run it on the test data set, run
 
